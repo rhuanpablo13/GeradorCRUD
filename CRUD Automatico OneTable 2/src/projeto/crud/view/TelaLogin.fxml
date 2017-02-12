@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projeto.crud.view.ControleTelaLogin">
+   <children>
+      <GridPane layoutX="100.0" layoutY="34.0" prefHeight="186.0" prefWidth="360.0" AnchorPane.bottomAnchor="324.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="83.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="317.0" minWidth="10.0" prefWidth="317.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints />
+          <RowConstraints />
+            <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="89.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Porta: " GridPane.rowIndex="2" />
+            <Label text="Banco:" GridPane.rowIndex="3" />
+            <TextField fx:id="porta" promptText="porta do banco de dados" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="banco" promptText="nome do banco" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="BANCO" translateX="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Host:" GridPane.rowIndex="4" />
+            <TextField fx:id="host" promptText="host do banco" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="selectDatabase" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Database" GridPane.rowIndex="5" />
+         </children>
+      </GridPane>
+      <GridPane layoutX="110.0" layoutY="269.0" prefHeight="153.0" prefWidth="360.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="350.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="83.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="317.0" minWidth="10.0" prefWidth="317.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="118.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Usuário:" GridPane.rowIndex="2" />
+            <Label text="Senha:" GridPane.rowIndex="3" />
+            <TextField fx:id="usuario" prefWidth="297.0" promptText="usuário do banco" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="USUÁRIO" translateX="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#handleTelaLogin" text="Conectar" translateX="80.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Candara" size="14.0" />
+               </font>
+            </Button>
+            <PasswordField fx:id="senha" promptText="senha do banco" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <Separator layoutX="11.0" layoutY="307.0" prefHeight="0.0" prefWidth="276.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="9.0" />
+      <Label layoutX="153.0" layoutY="27.0" text="CONFIGURAÇÕES" />
+      <Separator layoutX="62.0" layoutY="58.0" prefHeight="0.0" prefWidth="276.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+   </children>
+</AnchorPane>

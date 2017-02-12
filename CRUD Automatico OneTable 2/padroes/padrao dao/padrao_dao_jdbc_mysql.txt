@@ -1,0 +1,146 @@
+#CABECALHO_DAO
+
+package #PACOTE_DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import #PACOTE_INTERFACE_DAO;
+import #PACOTE_CONNECTION_SINGLETON;
+import #IMPORTS_CLASS;
+
+public class #CLASSDAO implements DAOInterface<#CLASS>{
+    private Connection connection;
+
+    public #CLASSDAO() {
+        this.connection = ConnectionSingleton().getInstance().getConnection();
+    }
+
+
+
+    @Override
+    public void adicionar(#CLASS #PARAMETRO){
+
+         String insert = "#INSERT_ADICIONAR_JDBC_MYSQL";
+         PreparedStatement ps = null;
+         try {
+            ps = connection.prepareStatement(insert);
+            #PREPARED_STATEMENT_INSERT_PARAMETROS
+            ps.executeUpdate();
+            ps.close();
+         } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.println("Erro ao inserir: " + #PARAMETRO);
+         }
+    }
+
+    @Override
+    public #CLASS findForId (#TIPO_ID_FINDFORID id) {
+
+		String select = "#SELECT_FINDFORID_JDBC_MYSQL";
+		PreparedStatement ps;
+		#CLASS #PARAMETRO = new #CLASS();
+		try {
+			ps = connection.prepareStatement(select);
+			#PS_SET_TIPO_BUSCA_POR_ID
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+#PREPARED_STATEMENT_FINDFORID_PARAMETROS
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Erro ao buscar por id: " + #PARAMETRO);
+		}
+		return #PARAMETRO;
+	}
+
+/*
+    @Override
+    public List<#CLASS> findForString (String str) {
+		String select = "#SELECT_FINDFORSTRING_JDBC_MYSQL";
+		PreparedStatement ps;
+		List<#CLASS> lista = new ArrayList<#CLASS>();
+		try {
+			ps = connection.prepareStatement(select);
+			ps.setString(1, str);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+			    #CLASS #PARAMETRO = new #CLASS();
+			    #PREPARED_STATEMENT_FINDFORSTRING_PARAMETROS
+			    lista.add(#PARAMETRO);
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Erro ao buscar por string: " + str);
+		}
+		return lista;
+	}
+*/
+    @Override
+    public List<#CLASS> listar(){
+		String select = "#SELECT_LISTAR_JDBC_MYSQL";
+		PreparedStatement stmt;
+		List<#CLASS> lista = new ArrayList<#CLASS>();
+		try {
+			stmt = this.connection.prepareStatement(select);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				#CLASS #PARAMETRO = new #CLASS();
+#PREPARED_STATEMENT_LIST_PARAMETROS
+				lista.add(#PARAMETRO);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Erro ao listar!");
+		}
+		return lista;
+	}
+
+    @Override
+    public void atualizar (#CLASS #PARAMETRO){
+
+		String update = "#UPDATE_ATUALIZAR_JDBC_MYSQL";
+		PreparedStatement ps;
+		try {
+			ps = this.connection.prepareStatement(update);
+#PREPARED_STATEMENT_ATUALIZAR_PARAMETROS
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Erro ao atualizar: " + #PARAMETRO);
+		}
+	}
+
+
+    @Override
+    public void excluir(#CLASS #PARAMETRO){
+        String delete = "#DELETE_EXCLUIR_JDBC_MYSQL";
+		PreparedStatement ps;
+		try {
+			ps = this.connection.prepareStatement(delete);
+#PREPARED_STATEMENT_EXCLUIR_PARAMETROS
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Erro ao excluir: " + #PARAMETRO);
+		}
+	}
+}

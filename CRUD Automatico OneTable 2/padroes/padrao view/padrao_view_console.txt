@@ -1,0 +1,205 @@
+#CABECALHO_VIEW_CONSOLE
+
+package #PACOTE_VIEW_CONSOLE
+
+import java.util.List;
+import java.util.Scanner;
+
+import #IMPORT_PACOTE_DAO
+import #IMPORT_PACOTE_BEAN
+
+public class View {
+
+	private #CLASSDAO dao;
+
+	public View() {
+		// TODO Auto-generated constructor stub
+		this.dao = new #CLASSDAO();
+	}
+
+
+	/**
+	 * Menu de navega��o principal
+	 */
+	public void navegacao(){
+
+		int i;
+		do{
+			 menuPrincipal();
+			 i = new Scanner(System.in).nextInt();
+
+			 switch (i) {
+			 case 1:
+				adicionar();
+				break;
+			 case 2:
+				editar(#CLASS #PARAMETRO);
+				break;
+			 case 3:
+				excluir(#CLASS #PARAMETRO);
+				break;
+			 case 4:
+				listar();
+				break;
+			 case 5:
+				do{
+					menuPesquisa();
+					i = new Scanner(System.in).nextInt();
+
+					switch (i) {
+					case 1:
+						buscarPorID(getIdPesquisa());
+						break;
+					case 2:
+						buscarPorString(getStringPesquisa());
+						break;
+					}
+				}while(i==1 || i==2);
+				break;
+
+			default:
+					System.out.println("Saiu!");return;
+			}
+		}while(i > 1 || i < 5);
+
+	}
+
+
+	/**
+	 * Menu de navega��o principal
+	 */
+	public void menuPrincipal(){
+		System.out.println("\n********** CRUD ***********");
+		System.out.println("1- Adicionar");
+		System.out.println("2- Editar");
+		System.out.println("3- Excluir");
+		System.out.println("4- Listar");
+		System.out.println("5- Pesquisar");
+		System.out.println("6- Sair\n");
+	}
+
+
+	/**
+	 * Menu para pesquisa
+	 */
+	public void menuPesquisa(){
+		System.out.println("0- voltar");
+		System.out.println("1- Pesquisar por id");
+		System.out.println("2- Pesquisar por string\n");
+	}
+
+
+
+	/**
+	 * M�todo para popular um objeto
+	 * @return um #CLASS
+	 */
+	public #CLASS popular#CLASS(){
+		#CLASS #PARAMETRO = new #CLASS();
+		#RECEBE_DADOS_USUARIO
+		return #PARAMETRO;
+	}
+
+
+
+	/**
+	 * M�todo para adicionar
+	 */
+	public void adicionar(){
+		getDao().adicionar(popular#CLASS());
+
+	}
+
+
+	/**
+	 * Perguntar ao usu�rio um ID
+	 * @return um ID
+	 */
+	public int getIdPesquisa(){
+		System.out.println("Informe o ID de pesquisa: ");
+		int i = new Scanner(System.in).nextInt();
+		return i;
+	}
+
+	/**
+	 * Perguntar ao usu�rio uma string
+	 * @return um nome
+	 */
+	public String getStringPesquisa(){
+		System.out.println("Informe uma string para pesquisa: ");
+		String i = new Scanner(System.in).nextLine();
+		return i;
+	}
+
+
+	/**
+	 * M�todo para editar
+	 */
+	public void editar(#CLASS #PARAMETRO){
+		System.out.println("Editando  - " + #PARAMETRO);
+		getDao().atualizar(#PARAMETRO);
+	}
+
+
+	/**
+	 * M�todo para excluir
+	 */
+	public void excluir(#CLASS #PARAMETRO){
+		System.out.println("Excluindo contato - " + #PARAMETRO);
+		getDao().remover(#PARAMETRO);
+	}
+
+	/**
+	 * Listar todos
+	 */
+	public void listar(){
+		System.out.println("Listando...");
+		List<#CLASS> l = getDao().listar();
+		for (#CLASS #PARAMETRO : l) {
+			System.out.println(#PARAMETRO.toString());
+		}
+	}
+
+	/**
+	 * Busca um por id
+	 * @param id
+	 */
+	public void buscarPorID(int id){
+		#CLASS c = getDao().findForId(id);
+		if(c != null)
+		    System.out.println(c.toString());
+		else
+		    System.out.println("Nenhum registro encontrado com o id: " + id);
+	}
+
+
+	/**
+	 * Busca por string
+	 * @param str
+	 */
+	public void buscarPorNome(String str){
+		List<#CLASS> cs = getDao().findForString(str);
+		if(!cs.isEmpty()){
+		    for (#CLASS c : cs) {
+			    System.out.println(c.toString());
+		    }
+		}else{
+		       System.out.println("Nenhum registro encontrado com o parametro: " + str);
+		}
+	}
+
+	/********************************************************/
+
+    	/**GETTERS*/
+	public #CLASSDAO getDao() {
+		return dao;
+	}
+
+    	/**SETTERS*/
+	public void setDao(#CLASSDAO dao) {
+		this.dao = dao;
+	}
+
+
+
+}

@@ -1,0 +1,45 @@
+﻿#CABECALHO_CONN
+
+package #PACOTE_CONN;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+/**
+*	Esta classe implementa o Design Pattern Singleton
+*/
+public class ConnectionSingleton{
+
+	private static Connection connection = null;
+	ConnectionSingleton instance = new ConnectionSingleton();
+
+	private ConnectionSingleton() throws SQLException{
+
+		if(this.connection == null){
+			try{
+				   Class.forName("com.mysql.jdbc.Driver");
+				   String SQL = "jdbc:mysql://#LOCALHOST/#BANCO";
+				   this.connection = DriverManager.getConnection(SQL,"#USUARIO","#SENHA");
+			}catch(ClassNotFoundException e){
+				throw new SQLException("Driver não encontrado!");
+			}
+		}
+	}
+
+
+	public Connection getConnection(){
+		return this.connection;
+	}
+
+	public static void closeConnection(){
+		try{
+			this.connection.close();
+		}catch(SQLException e){
+			System.out.println("Erro ao fechar banco de dados!");
+		}
+	}
+
+
+
+}

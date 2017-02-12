@@ -1,0 +1,83 @@
+#CABECALHO_DAO
+
+package #PACOTE_DAO;
+
+
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import #PACOTE_DAO_INTERFACE;
+#CLASSES_IMPORTS;
+
+
+
+public class #CLASSDAO implements DAOInterface<#CLASS>{
+
+    private EntityManager manager;
+
+    public #CLASSDAO(EntityManager manager) {
+        this.manager = manager;
+    }
+
+
+    @Override
+    public void adicionar(#CLASS #PARAMETRO) {
+        getManager().getTransaction().begin();
+        getManager().persist(#PARAMETRO);
+        getManager().getTransaction().commit();
+        getManager().close();
+
+    }
+
+    @Override
+    public void excluir(#CLASS #PARAMETRO) {
+       getManager().getTransaction().begin();
+       #CLASS i = null;
+       i = getManager().find(#CLASS.class, #PARAMETRO.getId());
+       if(i != null){
+            getManager().remove(i);
+            getManager().getTransaction().commit();
+            getManager().close();
+        }else{
+            System.out.println("Erro ao excluir #PARAMETRO");
+        }
+
+    }
+
+    @Override
+    public void atualizar(#CLASS #PARAMETRO) {
+        getManager().getTransaction().begin();
+        getManager().merge(#PARAMETRO);
+        getManager().getTransaction().commit();
+        getManager().close();
+    }
+
+
+    @Override
+    public List<#CLASS> listar() {
+        Query q = getManager().createQuery("SELECT i FROM #CLASS");
+        return q.getResultList();
+    }
+
+
+    @Override
+    public #CLASS findForId(int id) {
+        Query q = getManager().createQuery("SELECT i FROM #CLASS i WHERE i.id =:id");
+        q.setParameter("id", id);
+        return (#CLASS) q.getSingleResult();
+    }
+
+
+    @Override
+    public #CLASS findForString(String atributoBusca) {
+        Query q = getManager().createQuery("SELECT i FROM #CLASS i WHERE i.atributoBusca =:atributoBusca");
+        q.setParameter("atributoBusca", atributoBusca);
+        return (#CLASS) q.getSingleResult();
+    }
+
+
+    public EntityManager getManager() {
+        return manager;
+    }
+}

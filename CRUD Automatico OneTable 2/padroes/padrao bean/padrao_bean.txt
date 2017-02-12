@@ -1,0 +1,21 @@
+#CABECALHO_BEAN
+
+package #PACOTE_BEAN;
+
+public class #CLASS{
+
+#ATRIBUTOS
+
+
+	public #CLASS() {
+	}
+
+
+	/**getters*/
+#GETTERS
+
+
+	/**setters*/
+#SETTERS
+
+}
